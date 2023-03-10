@@ -27,16 +27,20 @@ def application(environ, start_response):
     if path == '/api/water-level':
         controller = WaterLevelController(params)
         output = controller.response().encode('utf-8')
+        response_headers = [('Content-type', 'text/plain'),
+                            ('Content-Length', str(len(output)))]
+        start_response(status, response_headers)
         return [output]
     if path == '/api/status':
         controller = StatusController()
         output = controller.response().encode('utf-8')
+        response_headers = [('Content-type', 'text/plain'),
+                            ('Content-Length', str(len(output)))]
+        start_response(status, response_headers)
         return [output]
 
     status = '404 Not Found'
-    # response_headers = [('Content-type', 'text/plain'),
-    #                     ('Content-Length', str(len(output)))]
-    # start_response(status, response_headers)
+
     return [b'404 Page Not Found']
 
 
