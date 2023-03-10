@@ -1,3 +1,11 @@
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+print(SCRIPT_DIR)
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+sys.path.append(os.path.dirname(SCRIPT_DIR+"/api"))
+sys.path.append(os.path.dirname(SCRIPT_DIR+"/db"))
 from api.water_level import WaterLevelController
 from api.status import StatusController
 from datetime import datetime

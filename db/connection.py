@@ -1,10 +1,12 @@
 import concurrent.futures
 import sqlite3
-
+import os
 
 class Connection:
     def __init__(self):
-        self.con = sqlite3.connect("db/db.sqlite3")
+        path = os.path.dirname(os.path.abspath(__file__)) + "/db.sqlite3"
+        print(path)
+        self.con = sqlite3.connect(path)
         self.cur = self.con.cursor()
 
     def execute(self, sql):
