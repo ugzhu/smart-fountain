@@ -4,7 +4,7 @@ from db.connection import Connection
 
 class WaterLevelController:
     def __init__(self, params):
-        self.userId = 1
+        self.userId = params['user']
         self.time = datetime.now().strftime("%Y/%m/%d %H:%M:%S")
         self.level = params['level']
 

@@ -2,8 +2,8 @@ from db.connection import Connection
 
 
 class StatusController:
-    def __init__(self):
-        self.userId = 1
+    def __init__(self, params):
+        self.userId = params['user']
 
     def response(self):
         sql = f"SELECT status FROM Status WHERE UID = {self.userId}"
