@@ -84,6 +84,6 @@ var yValues2 = {self.y2};
                 if "{% customized insert indicator %}" in line:
                     response += insert
                     continue
-                response  += line
+                response += line
 
         return response
