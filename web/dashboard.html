@@ -185,10 +185,18 @@
         function turnOn() {
           document.getElementById("status").className = "switch-on";
           document.getElementById("status").innerHTML = "ON";
+          const Http = new XMLHttpRequest();
+          const url='https://iot.yujiezhu.net/api/on/' + userId;
+          Http.open("GET", url);
+          Http.send();
         }
         function turnOff() {
           document.getElementById("status").className = "switch-off";
           document.getElementById("status").innerHTML = "OFF";
+          const Http = new XMLHttpRequest();
+          const url='https://iot.yujiezhu.net/api/off/' + userId;
+          Http.open("GET", url);
+          Http.send();
         }
     </script>
 </body>

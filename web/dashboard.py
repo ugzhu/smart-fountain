@@ -67,7 +67,7 @@ class DashboardController():
         response = ""
         path = os.path.dirname(os.path.abspath(__file__)) + "/dashboard.html"
         insert = f"""\
-var userId = {self.userId};
+var userId = '{self.userId}';
 var xValues1 = {self.x1};
 var yValues1 = {self.y1};
 var xValues2 = {self.x2};
