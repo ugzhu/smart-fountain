@@ -92,7 +92,14 @@
             50% { background-position: 400% 0; }
             100% { background-position: 0 0; }
         }
-
+        .switch-on {
+            color:#42f593;
+            font-size:46px;
+        }
+        .switch-off {
+            color:#f54248;
+            font-size:46px;
+        }
 
     </style>
 </head>
@@ -106,8 +113,8 @@
     </section>
     <br>
     <section class="button-section">
-        <button class="glow-on-hover" id="on-btn" type="button">Fountain ON!</button>
-        <button class="glow-on-hover" id="off-btn" type="button">Fountain OFF!</button>
+        <button class="glow-on-hover" id="on-btn" onclick="turnOn()" type="button">Fountain ON!</button>
+        <button class="glow-on-hover" id="off-btn" onclick="turnOff()" type="button">Fountain OFF!</button>
     </section>
     <br>
     <section>
@@ -175,6 +182,14 @@
             console.error(`Error: ${err}`);
           }
         });
+        function turnOn() {
+          document.getElementById("status").className = "switch-on";
+          document.getElementById("status").innerHTML = "ON";
+        }
+        function turnOff() {
+          document.getElementById("status").className = "switch-off";
+          document.getElementById("status").innerHTML = "OFF";
+        }
     </script>
 </body>
 </html>

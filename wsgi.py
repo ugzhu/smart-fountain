@@ -60,7 +60,19 @@ def web_dashboard(path):
     #     response_headers = [('Content-type', 'text/plain'),
     #                         ('Content-Length', str(len(output)))]
     return output, response_headers, status
-
+#
+# def api_on(path):
+#     output = b''
+#     status = '200 OK'
+#     response_headers = [('Content-type', 'text/plain'),
+#                         ('Content-Length', str(len(output)))]
+#     return output, response_headers, status
+# def api_off(path):
+#     output = b''
+#     status = '200 OK'
+#     response_headers = [('Content-type', 'text/plain'),
+#                         ('Content-Length', str(len(output)))]
+#     return output, response_headers, status
 
 def application(environ, start_response):
     path = environ['PATH_INFO']
@@ -70,7 +82,14 @@ def application(environ, start_response):
         for item in query_list:
             param = item.split("=")
             params.update({param[0]: param[1]})
-
+    # if '/api/on' in path:
+    #     output, response_headers, status = api_on(path)
+    #     start_response(status, response_headers)
+    #     return [output]
+    # if '/api/off' in path:
+    #     output, response_headers, status = api_off(path)
+    #     start_response(status, response_headers)
+    #     return [output]
     if '/web/dashboard' in path:
         output, response_headers, status = web_dashboard(path)
         start_response(status, response_headers)

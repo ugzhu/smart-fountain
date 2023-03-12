@@ -16,8 +16,8 @@ class DashboardController():
         sql = f"SELECT status FROM Status WHERE UID = {self.userId};"
         status = int(self.conn.execute(sql).fetchone()[0])
         if status == 1:
-            return '<em style="color:#42f593;font-size:46px;">ON</em>'
-        return '<em style="color:#f54248;font-size:46px;">OFF</em>'
+            return '<em class="switch-on" id="status">ON</em>'
+        return '<em class="switch-off" id="status">OFF</em>'
 
     def get_user_name(self):
         sql = f"SELECT username FROM Usr WHERE UID = {self.userId};"
