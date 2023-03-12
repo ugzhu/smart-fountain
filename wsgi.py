@@ -96,7 +96,7 @@ def login():
 def api_auth(params):
     try:
         controller = AuthController(params)
-        uid = controller.response().encode('utf-8')
+        uid = controller.response()
         output = b''
         status = '302 Found'
         response_headers = [('Content-type', 'text/html'),
