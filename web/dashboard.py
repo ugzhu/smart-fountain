@@ -1,24 +1,65 @@
 from db.connection import Connection
+from datetime import datetime
 import os
 
 
 class DashboardController():
     def __init__(self, user):
         self.userId = user
+        self.x1, self.y1, self.x2, self.y2 = self.get_params()
+
+    def get_params(self):
+        today = datetime.now().strftime("%Y/%m/%d")
+        sql = f"SELECT time, level FROM Level WHERE UID = {self.userId};"
+        conn = Connection()
+        levels = conn.execute(sql).fetchall()
+        history_params = self.sort(levels)
+        today_params = []
+        for item in history_params:
+            if today in item[0]:
+                today_params.append(item)
+        x_values1, y_values1 = self.params_to_string(today_params)
+        x_values2, y_values2 = self.params_to_string(history_params)
+        return x_values1, y_values1, x_values2, y_values2
+
+    @staticmethod
+    def params_to_string(params):
+        xValues, yValues = "[", "["
+        for param in params:
+            xValues += f"'{param[0]}', "
+            yValues += f"{param[1]}, "
+        xValues += "]"
+        yValues += "]"
+        return xValues, yValues
+
+    @staticmethod
+    def sort(my_list):
+        new_list = []
+        res_list = []
+
+        for item in my_list:
+            new_list.append((datetime.strptime(item[0], "%Y/%m/%d %H:%M:%S"), item[1]))
+
+        new_list = sorted(new_list)
+
+        for item in new_list:
+            res_list.append((item[0].strftime("%Y/%m/%d %H:%M:%S"), item[1]))
+
+        return res_list
 
     def response(self):
         response = ""
         path = os.path.dirname(os.path.abspath(__file__)) + "/dashboard.html"
-        parameters = f"""\
-var xValues1 = [50,60,70,80,90,100,110,120,130,140,150];
-var yValues1 = [7,8,8,9,9,9,10,11,14,14,15];
-var xValues2 = [50,60,70,80,90,100,110,120,130,140,150];
-var yValues2 = [7,8,8,9,9,9,10,11,14,14,15];
+        insert = f"""\
+var xValues1 = {self.x1};
+var yValues1 = {self.y1};
+var xValues2 = {self.x2};
+var yValues2 = {self.y2};
 """
         with open(path) as f:
             for line in f:
                 if "{% customer insert indicator %}" in line:
-                    response = response + parameters
+                    response = response + insert
                     continue
                 response = response + line
 

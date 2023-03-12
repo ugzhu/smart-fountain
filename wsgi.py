@@ -101,7 +101,7 @@ def application(environ, start_response):
 if __name__ == '__main__':
     environ1 = {'PATH_INFO': '/api/water-level',
                'REQUEST_METHOD': 'GET',
-               'QUERY_STRING': 'level=85&user=1'}
+               'QUERY_STRING': 'level=0&user=1'}
     environ2 = {'PATH_INFO': '/api/status',
                'REQUEST_METHOD': 'GET',
                'QUERY_STRING': 'user=1'}

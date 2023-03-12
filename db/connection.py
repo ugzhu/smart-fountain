@@ -5,7 +5,6 @@ import os
 class Connection:
     def __init__(self):
         path = os.path.dirname(os.path.abspath(__file__)) + "/db.sqlite3"
-        print(path)
         self.con = sqlite3.connect(path)
         self.cur = self.con.cursor()
 
