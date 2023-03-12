@@ -94,7 +94,6 @@ def login():
     return output, response_headers, status
 
 def api_auth(params):
-    print(params)
     try:
         controller = AuthController(params)
         uid = controller.response().encode('utf-8')

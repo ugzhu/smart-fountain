@@ -7,5 +7,6 @@ class AuthController:
 
     def response(self):
         sql = f"SELECT UID FROM Usr WHERE username = '{self.username}' AND paddword = '{self.password}';"
+        print(sql)
         conn = Connection()
         return conn.execute(sql).fetchone()[0]
