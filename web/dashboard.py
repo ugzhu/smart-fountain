@@ -67,10 +67,11 @@ var yValues2 = {self.y2};
         with open(path) as f:
             for line in f:
                 if "{% user %}" in line:
-                    line.replace("{% user %}", self.username)
-                if "{% customized insert indicator %}" in line:
-                    response = response + insert
+                    response += line.replace("{% user %}", self.username)
                     continue
-                response = response + line
+                if "{% customized insert indicator %}" in line:
+                    response += insert
+                    continue
+                response  += line
 
         return response

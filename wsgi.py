@@ -98,7 +98,7 @@ def application(environ, start_response):
 if __name__ == '__main__':
     environ1 = {'PATH_INFO': '/api/water-level',
                'REQUEST_METHOD': 'GET',
-               'QUERY_STRING': 'level=0&user=1'}
+               'QUERY_STRING': 'level=80&user=1'}
     environ2 = {'PATH_INFO': '/api/status',
                'REQUEST_METHOD': 'GET',
                'QUERY_STRING': 'user=1'}
@@ -111,7 +111,7 @@ if __name__ == '__main__':
     environ5 = {'PATH_INFO': '/web/register',
                 'REQUEST_METHOD': 'GET',
                 'QUERY_STRING': ''}
-    output = application(environ3, start_response)
+    output = application(environ1, start_response)
     print(output[0])
     # print(datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
     # Connection().initialize()
