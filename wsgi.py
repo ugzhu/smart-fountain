@@ -103,7 +103,8 @@ def api_auth(params):
                             ('Content-Length', str(len(output))),
                             ('Location', f'https://iot.yujiezhu.net/web/dashboard/{uid}')]
         return output, response_headers, status
-    except:
+    except Exception as e:
+        print(e)
         return login()
 
 def application(environ, start_response):
