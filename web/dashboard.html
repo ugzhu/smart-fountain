@@ -5,11 +5,20 @@
     <title>Smart Pet Fountain</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style type="text/css">
-        .chart-container {
+        body {
+            background-image: url('https://www.yujiezhu.net/background.jpg');
+        }
+        .header-section {
+            position: relative;
+            margin: auto;
+            text-align: center;
+            font-family: cursive;
+            font-size: 24px;
+        }
+        .chart-section {
             position: relative;
             margin: auto;
 <!--            height: 60vh;-->
-
             width: 80vw;
             aspect-ratio: 2 / 1;
             text-align: center;
@@ -26,18 +35,17 @@
     </style>
 </head>
 <body>
-DASHBOARD
-    <div class="chart-container">
-        <div class="rounded-border-gradient">
-            <canvas id="chLine1"></canvas>
-        </div>
-    </div>
+    <section class="header-section">
+        <h1>Smart Pet Fountain Web Portal</h1>
+        <h2>Welcome {% user %}!</h2>
+    </section>
+    <section class="chart-section">
+        <canvas id="chLine1"></canvas>
+    </section>
     <p></p>
-    <div class="chart-container">
-        <div class="rounded-border-gradient">
-            <canvas id="chLine2"></canvas>
-        </div>
-    </div>
+    <section class="chart-section">
+        <canvas id="chLine2"></canvas>
+    </section>
     <script>
         var xValues1 = [50, 3, ];
         var yValues1 = [7, 98, ];
@@ -51,7 +59,7 @@ DASHBOARD
           data: {
             labels: xValues1,
             datasets: [{
-              label: "Water Level Variation Today",
+              label: "Water Level",
               lineTension: 0,
               backgroundColor: "rgba(0,191,255,0.8)",
               borderColor: "rgba(0,191,255,0.8)",
@@ -65,7 +73,7 @@ DASHBOARD
           data: {
             labels: xValues2,
             datasets: [{
-              label: "Water Level Variation History",
+              label: "Water Level",
               lineTension: 0,
               backgroundColor: "rgba(234, 0, 255, 0.28)",
               borderColor: "rgba(234, 0, 255, 0.28)",

@@ -7,13 +7,20 @@ import os
 class DashboardController():
     def __init__(self, user):
         self.userId = user
+        self.conn = Connection()
         self.x1, self.y1, self.x2, self.y2 = self.get_params()
+        self.username = self.get_user_name()
+
+    def get_user_name(self):
+        sql = f"SELECT username FROM Usr WHERE UID = {self.userId};"
+        username = self.conn.execute(sql).fetchone()[0]
+        print(username)
+        return username
 
     def get_params(self):
         today = datetime.now().astimezone(pytz.timezone('US/Pacific')).strftime("%Y/%m/%d")
         sql = f"SELECT time, level FROM Level WHERE UID = {self.userId};"
-        conn = Connection()
-        levels = conn.execute(sql).fetchall()
+        levels = self.conn.execute(sql).fetchall()
         history_params = self.sort(levels)
         today_params = []
         for item in history_params:
@@ -59,6 +66,8 @@ var yValues2 = {self.y2};
 """
         with open(path) as f:
             for line in f:
+                if "{% user %}" in line:
+                    line.replace("{% user %}", self.username)
                 if "{% customized insert indicator %}" in line:
                     response = response + insert
                     continue

@@ -47,18 +47,18 @@ def api_status(params):
 
 
 def web_dashboard(path):
-    try:
-        user = int(path.rsplit("/", 1)[-1])
-        controller = DashboardController(user)
-        output = controller.response().encode('utf-8')
-        status = '200 OK'
-        response_headers = [('Content-type', 'text/html'),
-                            ('Content-Length', str(len(output)))]
-    except:
-        output = b'404 Not Found'
-        status = '404 Not Found'
-        response_headers = [('Content-type', 'text/plain'),
-                            ('Content-Length', str(len(output)))]
+    # try:
+    user = int(path.rsplit("/", 1)[-1])
+    controller = DashboardController(user)
+    output = controller.response().encode('utf-8')
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/html'),
+                        ('Content-Length', str(len(output)))]
+    # except:
+    #     output = b'404 Not Found'
+    #     status = '404 Not Found'
+    #     response_headers = [('Content-type', 'text/plain'),
+    #                         ('Content-Length', str(len(output)))]
     return output, response_headers, status
 
 
