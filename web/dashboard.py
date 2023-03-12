@@ -1,5 +1,6 @@
 from db.connection import Connection
 from datetime import datetime
+import pytz
 import os
 
 
@@ -9,7 +10,9 @@ class DashboardController():
         self.x1, self.y1, self.x2, self.y2 = self.get_params()
 
     def get_params(self):
-        today = datetime.now().strftime("%Y/%m/%d")
+        # today = datetime.now().strftime("%Y/%m/%d")
+        today = datetime.now().astimezone(pytz.timezone('US/Pacific')).strftime("%Y/%m/%d")
+
         sql = f"SELECT time, level FROM Level WHERE UID = {self.userId};"
         conn = Connection()
         levels = conn.execute(sql).fetchall()
