@@ -109,7 +109,7 @@ def api_auth(params):
         status = '303 See Other'
         response_headers = [('Content-type', 'text/html'),
                             ('Content-Length', str(len(output))),
-                            ('Location', f'https://iot.yujiezhu.net/web/dashboard/{uid}')]
+                            ('Location', f'https://iot.yujiezhu.net/')]
         return login()
 
 def application(environ, start_response):
