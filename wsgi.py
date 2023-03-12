@@ -110,7 +110,7 @@ def api_auth(params):
         response_headers = [('Content-type', 'text/html'),
                             ('Content-Length', str(len(output))),
                             ('Location', f'https://iot.yujiezhu.net/')]
-        return login()
+        return output, response_headers, status
 
 def application(environ, start_response):
     path = environ['PATH_INFO']
