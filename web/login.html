@@ -242,7 +242,7 @@
 
     <section class="login-box">
     <h2>Login</h2>
-        <form>
+        <form action="https://iot.yujiezhu.net/api/auth" id="login-form">
             <section class="user-box">
                 <input type="text" name="username" required="">
                 <label>Username</label>
@@ -252,7 +252,7 @@
                 <label>Password</label>
             </section>
             <section class="button-section">
-                <button class="glow-on-hover" id="on-btn" onclick="turnOn()" type="button">Log In</button>
+                <button class="glow-on-hover" type="submit" form="login-form">Log In</button>
             </section>
             <p><a href="#">Don't have an account? Register.</a></p>
         </form>
