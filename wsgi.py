@@ -50,17 +50,18 @@ def api_status(params):
 
 
 def web_dashboard(params):
-    if 'user' in params:
-        controller = DashboardController(params)
-        output = controller.response().encode('utf-8')
-        status = '200 OK'
-        response_headers = [('Content-type', 'text/html'),
-                            ('Content-Length', str(len(output)))]
-    else:
-        output = b'Incorrect Parameters'
-        status = '400 Bad Request'
-        response_headers = [('Content-type', 'text/plain'),
-                            ('Content-Length', str(len(output)))]
+    # if 'user' in params:
+    user = 1
+    controller = DashboardController(user)
+    output = controller.response().encode('utf-8')
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/html'),
+                        ('Content-Length', str(len(output)))]
+    # else:
+    #     output = b'Incorrect Parameters'
+    #     status = '400 Bad Request'
+    #     response_headers = [('Content-type', 'text/plain'),
+    #                         ('Content-Length', str(len(output)))]
     return output, response_headers, status
 
 
