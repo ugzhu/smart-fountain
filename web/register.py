@@ -6,7 +6,7 @@ class RegisterController:
         pass
 
     @staticmethod
-    def response(self):
+    def response():
         response = ""
         path = os.path.dirname(os.path.abspath(__file__)) + "/register.html"
 
