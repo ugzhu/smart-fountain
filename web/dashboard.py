@@ -10,6 +10,14 @@ class DashboardController():
         self.conn = Connection()
         self.x1, self.y1, self.x2, self.y2 = self.get_params()
         self.username = self.get_user_name()
+        self.status = self.get_status()
+
+    def get_status(self):
+        sql = f"SELECT status FROM Status WHERE UID = {self.userId};"
+        status = int(self.conn.execute(sql).fetchone()[0])
+        if status == 1:
+            return '<em style="color:#42f593;font-size:46px;">ON</em>'
+        return '<em style="color:#f54248;font-size:46px;">OFF</em>'
 
     def get_user_name(self):
         sql = f"SELECT username FROM Usr WHERE UID = {self.userId};"
@@ -59,6 +67,7 @@ class DashboardController():
         response = ""
         path = os.path.dirname(os.path.abspath(__file__)) + "/dashboard.html"
         insert = f"""\
+var userId = {self.userId};
 var xValues1 = {self.x1};
 var yValues1 = {self.y1};
 var xValues2 = {self.x2};
@@ -66,6 +75,9 @@ var yValues2 = {self.y2};
 """
         with open(path) as f:
             for line in f:
+                if "{% status %}" in line:
+                    response += self.status
+                    continue
                 if "{% user %}" in line:
                     response += line.replace("{% user %}", self.username)
                     continue

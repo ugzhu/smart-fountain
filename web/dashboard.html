@@ -92,17 +92,24 @@
             50% { background-position: 400% 0; }
             100% { background-position: 0 0; }
         }
+
+
     </style>
 </head>
 <body>
+
     <section class="site-header">
         <h1>Smart Pet Fountain Web Portal</h1>
-        <h3>Welcome {% user %}!</h3>
+        <h3>Welcome {% user %}, your Smart Pet Fountain is now
+        <em style="color:#42f593;font-size:46px;">ON</em>
+        {% status %}
+        <em style="color:#f54248;font-size:46px;">OFF</em>
+        </h3>
     </section>
     <br>
     <section class="button-section">
-        <button class="glow-on-hover" type="button">Fountain ON!</button>
-        <button class="glow-on-hover" type="button">Fountain OFF!</button>
+        <button class="glow-on-hover" id="on-btn" type="button">Fountain ON!</button>
+        <button class="glow-on-hover" id="off-btn" type="button">Fountain OFF!</button>
     </section>
     <br>
     <section>
@@ -128,7 +135,9 @@
         var yValues1 = [7, 98, ];
         var xValues2 = [50];
         var yValues2 = [7];
+        var userId = 1;
 <!--        {% customized insert indicator %}-->
+        var url = ""
         new Chart("chart1", {
           type: "line",
           data: {
@@ -153,6 +162,19 @@
               borderColor: "rgba(234, 0, 255, 0.28)",
               data: yValues2
             }]
+          }
+        });
+        const on_button = document.getElementById('post-btn');
+        on_button.addEventListener('click', async _ => {
+          try {
+            const response = await fetch('yourUrl', {
+              method: 'post',
+              body: {
+              }
+            });
+            console.log('Completed!', response);
+          } catch(err) {
+            console.error(`Error: ${err}`);
           }
         });
     </script>
