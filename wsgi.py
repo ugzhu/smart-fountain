@@ -144,7 +144,7 @@ def application(environ, start_response):
             param = item.split("=")
             params.update({param[0]: param[1]})
 
-    if '/api/register' in path:
+    if '/api/new-user' in path:
         output, response_headers, status = api_new_user(params)
         start_response(status, response_headers)
         return [output]
