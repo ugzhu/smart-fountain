@@ -1,13 +1,10 @@
 import sys
 import os
-
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-print(SCRIPT_DIR)
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 sys.path.append(os.path.dirname(SCRIPT_DIR+"/api"))
 sys.path.append(os.path.dirname(SCRIPT_DIR+"/db"))
 sys.path.append(os.path.dirname(SCRIPT_DIR+"/web"))
-
 from api.water_level import WaterLevelController
 from api.status import StatusController
 from web.dashboard import DashboardController
@@ -49,19 +46,19 @@ def api_status(params):
     return output, response_headers, status
 
 
-def web_dashboard(params):
-    # if 'user' in params:
-    user = 1
-    controller = DashboardController(user)
-    output = controller.response().encode('utf-8')
-    status = '200 OK'
-    response_headers = [('Content-type', 'text/html'),
-                        ('Content-Length', str(len(output)))]
-    # else:
-    #     output = b'Incorrect Parameters'
-    #     status = '400 Bad Request'
-    #     response_headers = [('Content-type', 'text/plain'),
-    #                         ('Content-Length', str(len(output)))]
+def web_dashboard(path):
+    try:
+        user = int(path.rsplit("/", 1)[-1])
+        controller = DashboardController(user)
+        output = controller.response().encode('utf-8')
+        status = '200 OK'
+        response_headers = [('Content-type', 'text/html'),
+                            ('Content-Length', str(len(output)))]
+    except:
+        output = b'404 Not Found'
+        status = '404 Not Found'
+        response_headers = [('Content-type', 'text/plain'),
+                            ('Content-Length', str(len(output)))]
     return output, response_headers, status
 
 
@@ -74,8 +71,8 @@ def application(environ, start_response):
             param = item.split("=")
             params.update({param[0]: param[1]})
 
-    if path == '/web/dashboard':
-        output, response_headers, status = web_dashboard(params)
+    if '/web/dashboard' in path:
+        output, response_headers, status = web_dashboard(path)
         start_response(status, response_headers)
         return [output]
 
@@ -105,7 +102,7 @@ if __name__ == '__main__':
     environ2 = {'PATH_INFO': '/api/status',
                'REQUEST_METHOD': 'GET',
                'QUERY_STRING': 'user=1'}
-    environ3 = {'PATH_INFO': '/web/dashboard',
+    environ3 = {'PATH_INFO': '/web/dashboard/1',
                 'REQUEST_METHOD': 'GET',
                 'QUERY_STRING': 'user=1'}
     environ4 = {'PATH_INFO': '/web/login',

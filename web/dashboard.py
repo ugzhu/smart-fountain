@@ -59,7 +59,7 @@ var yValues2 = {self.y2};
 """
         with open(path) as f:
             for line in f:
-                if "{% customer insert indicator %}" in line:
+                if "{% customized insert indicator %}" in line:
                     response = response + insert
                     continue
                 response = response + line

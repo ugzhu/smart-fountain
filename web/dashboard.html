@@ -44,14 +44,14 @@ DASHBOARD
         var xValues2 = [50];
         var yValues2 = [7];
 
-<!--        {% customer insert indicator %}-->
+<!--        {% customized insert indicator %}-->
 
         new Chart("chLine1", {
           type: "line",
           data: {
             labels: xValues1,
             datasets: [{
-              label: "Water Level History",
+              label: "Water Level Variation Today",
               lineTension: 0,
               backgroundColor: "rgba(0,191,255,0.8)",
               borderColor: "rgba(0,191,255,0.8)",
@@ -65,7 +65,7 @@ DASHBOARD
           data: {
             labels: xValues2,
             datasets: [{
-              label: "Water Level History",
+              label: "Water Level Variation History",
               lineTension: 0,
               backgroundColor: "rgba(234, 0, 255, 0.28)",
               borderColor: "rgba(234, 0, 255, 0.28)",
