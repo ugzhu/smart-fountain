@@ -1,11 +1,12 @@
 from db.connection import Connection
 
-class AuthController:
+class NewUserController:
     def __init__(self, params):
         self.username = params['username']
         self.password = params['password']
 
     def response(self):
-        sql = f"SELECT UID FROM Usr WHERE username = '{self.username}' AND password = '{self.password}';"
+        sql = f"INSERT INTO Usr(username, password, activation)" \
+              f"VALUES('{self.username}', '{self.password}', 0);"
         conn = Connection()
-        return conn.execute(sql).fetchone()[0]
+        conn.execute(sql)

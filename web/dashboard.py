@@ -11,6 +11,15 @@ class DashboardController():
         self.x1, self.y1, self.x2, self.y2 = self.get_params()
         self.username = self.get_user_name()
         self.status = self.get_status()
+        self.activation = self.get_activation()
+
+    def get_activation(self):
+        try:
+            sql = f"SELECT activation FROM Usr WHERE UID = {self.userId};"
+            activation = int(self.conn.execute(sql).fetchone()[0])
+        except:
+            activation = 0
+        return activation
 
     def get_status(self):
         sql = f"SELECT status FROM Status WHERE UID = {self.userId};"
@@ -63,7 +72,22 @@ class DashboardController():
 
         return res_list
 
+    def not_active(self):
+        response = ""
+        path = os.path.dirname(os.path.abspath(__file__)) + "/not-active.html"
+        with open(path) as f:
+            for line in f:
+                if "{% user %}" in line:
+                    response += line.replace("{% user %}", self.username)
+                    continue
+                response += line
+
+        return response
+
+
     def response(self):
+        if self.activation != 1:
+            return self.not_active()
         response = ""
         path = os.path.dirname(os.path.abspath(__file__)) + "/dashboard.html"
         insert = f"""\

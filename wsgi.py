@@ -9,8 +9,10 @@ from api.water_level import WaterLevelController
 from api.status import StatusController
 from api.switch import SwitchController
 from api.auth import AuthController
+from api.new_user import NewUserController
 from web.dashboard import DashboardController
 from web.login import LoginController
+from web.register import RegisterController
 from datetime import datetime
 from db.connection import Connection
 
@@ -93,6 +95,14 @@ def login():
                         ('Content-Length', str(len(output)))]
     return output, response_headers, status
 
+def register():
+    controller = RegisterController
+    output = controller.response().encode('utf-8')
+    status = '200 OK'
+    response_headers = [('Content-type', 'text/html'),
+                        ('Content-Length', str(len(output)))]
+    return output, response_headers, status
+
 def api_auth(params):
     try:
         controller = AuthController(params)
@@ -112,6 +122,18 @@ def api_auth(params):
                             ('Location', f'https://iot.yujiezhu.net/')]
         return output, response_headers, status
 
+
+def api_new_user(params):
+    controller = NewUserController(params)
+    controller.response()
+    output = b''
+    status = '302 Found'
+    response_headers = [('Content-type', 'text/html'),
+                        ('Content-Length', str(len(output))),
+                        ('Location', f'https://iot.yujiezhu.net/')]
+    return output, response_headers, status
+
+
 def application(environ, start_response):
     path = environ['PATH_INFO']
     params = {}
@@ -122,7 +144,17 @@ def application(environ, start_response):
             param = item.split("=")
             params.update({param[0]: param[1]})
 
-    if path == '/api/auth' in path:
+    if '/api/register' in path:
+        output, response_headers, status = api_new_user(params)
+        start_response(status, response_headers)
+        return [output]
+
+    if path == '/web/register':
+        output, response_headers, status = register()
+        start_response(status, response_headers)
+        return [output]
+
+    if '/api/auth' in path:
         output, response_headers, status = api_auth(params)
         start_response(status, response_headers)
         return [output]

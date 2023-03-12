@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Pet Fountain</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style type="text/css">
+        body {
+            background-image: url('https://www.yujiezhu.net/background.jpg');
+        }
+        .site-header, .section-header {
+            position: relative;
+            margin: auto;
+            text-align: center;
+
+            font-size: 24px;
+        }
+        h1, h3{
+            font-family: cursive;
+        }
+        .chart-section {
+            position: relative;
+            margin: auto;
+<!--            height: 60vh;-->
+            width: 80vw;
+            aspect-ratio: 2 / 1;
+            text-align: center;
+            font-family: cursive;
+            font-size: 24px;
+            border: 10px solid black;
+            padding: 2rem 1rem;
+            min-height: 3em;
+            width: 60%;
+            resize: both;
+            background: linear-gradient(to top, rgba(#cffffe, 0.3), rgba(#f9f7d9, 0.3), rgba(#fce2ce, 0.3), rgba(#ffc1f3, 0.3));
+            border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3ClinearGradient id='g' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23cffffe' /%3E%3Cstop offset='25%25' stop-color='%23f9f7d9' /%3E%3Cstop offset='50%25' stop-color='%23fce2ce' /%3E%3Cstop offset='100%25' stop-color='%23ffc1f3' /%3E%3C/linearGradient%3E %3Cpath d='M1.5 1.5 l97 0l0 97l-97 0 l0 -97' stroke-linecap='square' stroke='url(%23g)' stroke-width='3'/%3E %3C/svg%3E") 1;
+        }
+        .button-section {
+           text-align: center
+        }
+        .glow-on-hover {
+            font-size: 24px;
+            font-family: cursive;
+            display: inline-block;
+            margin-right: 20px;
+            width: 220px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+        }
+        .glow-on-hover:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left:-2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+        .glow-on-hover:active {
+            color: #000
+        }
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+        .glow-on-hover:hover:before {
+            opacity: 1;
+        }
+        .glow-on-hover:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
+        .switch-on {
+            color:#42f593;
+            font-size:46px;
+        }
+        .switch-off {
+            color:#f54248;
+            font-size:46px;
+        }
+        ul {
+            list-style-position: inside;
+        }
+
+    </style>
+</head>
+<body>
+
+    <section class="site-header">
+        <h1>Smart Pet Fountain Web Portal</h1>
+        <h3>Welcome {% user %}, your account is not activated.</h3>
+        <p>To purchase subscription and IoT device, please contact one of our representatives:</p>
+        <ul>
+            <li>Yujie Zhu: yzhu7@scu.edu</li>
+            <li>Ziyang Wang: zwang21@scu.edu</li>
+            <li>Tiancheng Lin: tlin5@scu.edu</li>
+        </ul>
+    </section>
+    <br>
+
+    <section class="button-section">
+        <a href="https://iot.yujiezhu.net/">
+            <button class="glow-on-hover" type="button">Log Out</button>
+        </a>
+    </section>
+
+    <script>
+        var xValues1 = [50, 3, ];
+        var yValues1 = [7, 98, ];
+        var xValues2 = [50];
+        var yValues2 = [7];
+        var userId = 1;
+<!--        {% customized insert indicator %}-->
+        var url = ""
+        new Chart("chart1", {
+          type: "line",
+          data: {
+            labels: xValues1,
+            datasets: [{
+              label: "Water Level",
+              lineTension: 0,
+              backgroundColor: "rgba(0,191,255,0.8)",
+              borderColor: "rgba(0,191,255,0.8)",
+              data: yValues1
+            }]
+          }
+        });
+        new Chart("chart2", {
+          type: "line",
+          data: {
+            labels: xValues2,
+            datasets: [{
+              label: "Water Level",
+              lineTension: 0,
+              backgroundColor: "rgba(234, 0, 255, 0.28)",
+              borderColor: "rgba(234, 0, 255, 0.28)",
+              data: yValues2
+            }]
+          }
+        });
+        const on_button = document.getElementById('post-btn');
+        on_button.addEventListener('click', async _ => {
+          try {
+            const response = await fetch('yourUrl', {
+              method: 'post',
+              body: {
+              }
+            });
+            console.log('Completed!', response);
+          } catch(err) {
+            console.error(`Error: ${err}`);
+          }
+        });
+        function turnOn() {
+          document.getElementById("status").className = "switch-on";
+          document.getElementById("status").innerHTML = "ON";
+          const Http = new XMLHttpRequest();
+          const url='https://iot.yujiezhu.net/api/on/' + userId;
+          Http.open("GET", url);
+          Http.send();
+        }
+        function turnOff() {
+          document.getElementById("status").className = "switch-off";
+          document.getElementById("status").innerHTML = "OFF";
+          const Http = new XMLHttpRequest();
+          const url='https://iot.yujiezhu.net/api/off/' + userId;
+          Http.open("GET", url);
+          Http.send();
+        }
+    </script>
+</body>
+</html>
