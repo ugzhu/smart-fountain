@@ -8,7 +8,7 @@
         body {
             background-image: url('https://www.yujiezhu.net/background.jpg');
         }
-        .header-section {
+        .site-header, .section-header {
             position: relative;
             margin: auto;
             text-align: center;
@@ -32,29 +32,104 @@
             background: linear-gradient(to top, rgba(#cffffe, 0.3), rgba(#f9f7d9, 0.3), rgba(#fce2ce, 0.3), rgba(#ffc1f3, 0.3));
             border-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='100' height='100' viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E %3ClinearGradient id='g' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23cffffe' /%3E%3Cstop offset='25%25' stop-color='%23f9f7d9' /%3E%3Cstop offset='50%25' stop-color='%23fce2ce' /%3E%3Cstop offset='100%25' stop-color='%23ffc1f3' /%3E%3C/linearGradient%3E %3Cpath d='M1.5 1.5 l97 0l0 97l-97 0 l0 -97' stroke-linecap='square' stroke='url(%23g)' stroke-width='3'/%3E %3C/svg%3E") 1;
         }
+        .button-section {
+           text-align: center
+        }
+        .glow-on-hover {
+            font-size: 24px;
+            font-family: cursive;
+            display: inline-block;
+            margin-right: 20px;
+            width: 220px;
+            height: 50px;
+            border: none;
+            outline: none;
+            color: #fff;
+            background: #111;
+            cursor: pointer;
+            position: relative;
+            z-index: 0;
+            border-radius: 10px;
+        }
+        .glow-on-hover:before {
+            content: '';
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            position: absolute;
+            top: -2px;
+            left:-2px;
+            background-size: 400%;
+            z-index: -1;
+            filter: blur(5px);
+            width: calc(100% + 4px);
+            height: calc(100% + 4px);
+            animation: glowing 20s linear infinite;
+            opacity: 0;
+            transition: opacity .3s ease-in-out;
+            border-radius: 10px;
+        }
+        .glow-on-hover:active {
+            color: #000
+        }
+        .glow-on-hover:active:after {
+            background: transparent;
+        }
+        .glow-on-hover:hover:before {
+            opacity: 1;
+        }
+        .glow-on-hover:after {
+            z-index: -1;
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            left: 0;
+            top: 0;
+            border-radius: 10px;
+        }
+        @keyframes glowing {
+            0% { background-position: 0 0; }
+            50% { background-position: 400% 0; }
+            100% { background-position: 0 0; }
+        }
     </style>
 </head>
 <body>
-    <section class="header-section">
+    <section class="site-header">
         <h1>Smart Pet Fountain Web Portal</h1>
-        <h2>Welcome {% user %}!</h2>
+        <h3>Welcome {% user %}!</h3>
     </section>
-    <section class="chart-section">
-        <canvas id="chLine1"></canvas>
+    <br>
+    <section class="button-section">
+        <button class="glow-on-hover" type="button">Fountain ON!</button>
+        <button class="glow-on-hover" type="button">Fountain OFF!</button>
     </section>
-    <p></p>
-    <section class="chart-section">
-        <canvas id="chLine2"></canvas>
+    <br>
+    <section>
+        <section class="section-header">
+            <h3>Water Level Variation Today</h3>
+        </section>
+        <section class="chart-section">
+            <canvas id="chart1"></canvas>
+        </section>
     </section>
+    <br>
+    <section>
+        <section class="section-header">
+            <h3>Water Level Variation History</h3>
+        </section>
+        <section class="chart-section">
+            <canvas id="chart2"></canvas>
+        </section>
+    </section>
+
     <script>
         var xValues1 = [50, 3, ];
         var yValues1 = [7, 98, ];
         var xValues2 = [50];
         var yValues2 = [7];
-
 <!--        {% customized insert indicator %}-->
-
-        new Chart("chLine1", {
+        new Chart("chart1", {
           type: "line",
           data: {
             labels: xValues1,
@@ -67,8 +142,7 @@
             }]
           }
         });
-
-        new Chart("chLine2", {
+        new Chart("chart2", {
           type: "line",
           data: {
             labels: xValues2,
