@@ -180,11 +180,13 @@ def application(environ, start_response):
         return [output]
 
     if path == '/api/water-level':
+        print("Level API called")
         output, response_headers, status = api_water_level(params)
         start_response(status, response_headers)
         return [output]
 
     if path == '/api/status':
+        print("Status API called")
         output, response_headers, status = api_status(params)
         start_response(status, response_headers)
         return [output]
@@ -217,7 +219,7 @@ if __name__ == '__main__':
     environ6 = {'PATH_INFO': '/',
                 'REQUEST_METHOD': 'GET',
                 'QUERY_STRING': ''}
-    output = application(environ6, start_response)
+    output = application(environ1, start_response)
     print(output[0])
     # print(datetime.now().strftime("%Y/%m/%d %H:%M:%S"))
     # Connection().initialize()
