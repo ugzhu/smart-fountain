@@ -8,10 +8,13 @@ class DashboardController():
     def __init__(self, user):
         self.userId = user
         self.conn = Connection()
-        self.x1, self.y1, self.x2, self.y2 = self.get_params()
         self.username = self.get_user_name()
-        self.status = self.get_status()
         self.activation = self.get_activation()
+        if self.activation != 1:
+            return
+        self.x1, self.y1, self.x2, self.y2 = self.get_params()
+        self.status = self.get_status()
+
 
     def get_activation(self):
         try:
